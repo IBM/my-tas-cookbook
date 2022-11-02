@@ -12,8 +12,6 @@ At the time of writing, the deployment script and steps for TAS [version 11.2](h
 
 &nbsp;
 
-&nbsp;
-
 **A note on how best to follow this deployment cookbook.**
 
 This [deployment cookbook](https://techzone.ibm.com/collection/63120401ab4a7b0018471b07) is primarily hosted on IBM's Tech Zone platform. It contains several Linux commands. This cookbook is also available via [github repository](https://github.com/IBM/my-tas-cookbook). It is best to follow the hands-on material from the github repository.
