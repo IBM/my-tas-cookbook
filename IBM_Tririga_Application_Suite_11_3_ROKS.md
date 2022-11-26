@@ -91,6 +91,7 @@ flowchart LR
     L --> M[AWS Rosa]
     L --> N[Azure ARO]
     L --> O[n...]
+    style B stroke:#333,stroke-width:5px
     style E stroke:#333,stroke-width:5px
     style C stroke:#333,stroke-width:5px
     style D stroke:#333,stroke-width:5px
@@ -112,6 +113,7 @@ flowchart LR
     E --> G[DB2]
     E --> H[Oracle]
     E --> I[MS Sql]
+    style B stroke:#333,stroke-width:5px
     style C stroke:#333,stroke-width:5px
     style D stroke:#333,stroke-width:5px
 ```
