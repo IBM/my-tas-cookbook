@@ -62,13 +62,15 @@ At the time of writing, the deployment script and steps for TAS [version 11.3](h
 
 - Red Hat's OpenShift cluster instance can be acquired through IBM's [Tech Zone](https://techzone.ibm.com) (for IBMers and IBM's business partners). See the Appendix (B) section at the end of this document. 
 
-1.3. Entitlement key to the IBM's container software.
-
-- To obtain [container software access](https://myibm.ibm.com/products-services/containerlibrary), contact your IBM sales representative. 
-
-1.4. AppPoints license.
+1.3. AppPoints license.
 
 - Work with your sales representative to obtain an [AppPoints license file](https://www.ibm.com/support/pages/ibm-support-licensing-start-page).
+- IBM's Business Partners get access to AppPoint license via their Partner Package purchase/renewals.
+
+1.4. Entitlement key to the IBM's container software.
+
+- To obtain [container software access](https://myibm.ibm.com/products-services/containerlibrary), contact your IBM sales representative. 
+- IBM's Business Partners get access to container software via their Partner Package purchase/renewals.
 
 1.5. Deployment Script.
 
@@ -88,8 +90,8 @@ flowchart LR
     I --> J[ROKS]
     I --> K[VPC]
     B --> L[Other Cloud Vendors]
-    L --> M[AWS Rosa]
-    L --> N[Azure ARO]
+    L --> M[AWS]
+    L --> N[Azure]
     L --> O[n...]
     style B stroke:#333,stroke-width:5px
     style E stroke:#333,stroke-width:5px
