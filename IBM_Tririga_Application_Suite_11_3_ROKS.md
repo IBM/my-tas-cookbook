@@ -91,7 +91,7 @@ flowchart LR
     L --> M[AWS Rosa]
     L --> N[Azure ARO]
     L --> O[n...]
-    style C fill:#03dbfc,stroke:#333,stroke-width:2px
+    style C fill:#121212,stroke:#333,stroke-width:2px
     style D fill:#03dbfc,stroke:#333,stroke-width:4px
     style F fill:#03dbfc,stroke:#333,stroke-width:4px
 ```
