@@ -78,30 +78,6 @@ At the time of writing, the deployment script and steps for TAS [version 11.3](h
 
 <div style="page-break-after: always;"></div>
 
-#### Infrastructure decision
-
-```mermaid
-flowchart LR
-    id1[/OpenShift platform/version/] --> B{Decision}
-    B --> C[Tech Zone/IBM Cloud] --> D[ROKS Classic] --> E((Version)) --> F[4.10]
-    C --> G[ROKS VPC]
-    C --> H[VMware]
-    B --> I[Your Own IBM Cloud]
-    I --> J[ROKS]
-    I --> K[VPC]
-    B --> L[Other Cloud Vendors]
-    L --> M[AWS]
-    L --> N[Azure]
-    L --> O[n...]
-    style B stroke:#333,stroke-width:5px
-    style E stroke:#333,stroke-width:5px
-    style C stroke:#333,stroke-width:5px
-    style D stroke:#333,stroke-width:5px
-    style F stroke:#333,stroke-width:5px
-```
-
-<div style="page-break-after: always;"></div>
-
 ### 2. Get Started with the Cloud Pak for Data
 
 #### Database decision
@@ -380,6 +356,28 @@ sales data: step 1: configure license for the user ssystem/smarter (/tririga/htm
 | NFS Size            | 4 TB or leave default none                     |
 | OpenShift Version   | 4.10                                           |
 | Notes               | Leave blank                                    |
+
+#### Infrastructure decision
+
+```mermaid
+flowchart LR
+    id1[/OpenShift platform/version/] --> B{Decision}
+    B --> C[Tech Zone/IBM Cloud] --> D[ROKS Classic] --> E((Version)) --> F[4.10]
+    C --> G[ROKS VPC]
+    C --> H[VMware]
+    B --> I[Your Own IBM Cloud]
+    I --> J[ROKS]
+    I --> K[VPC]
+    B --> L[Other Cloud Vendors]
+    L --> M[AWS]
+    L --> N[Azure]
+    L --> O[n...]
+    style B stroke:#333,stroke-width:5px
+    style E stroke:#333,stroke-width:5px
+    style C stroke:#333,stroke-width:5px
+    style D stroke:#333,stroke-width:5px
+    style F stroke:#333,stroke-width:5px
+```
 
 ### Appendix C: Data Management Console (optional)
 
