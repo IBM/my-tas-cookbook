@@ -327,7 +327,7 @@ Please keep in mind that dummy sales data is only available to IBMers and IBM's 
 
 ### 3. Supply Tririga AppPoint License
 
-3.1. (This is an interactive process. Contact the author if you are not familiar with the bootstrap process). Copy license to /manifests/slsbootstrap.yaml
+3.1. (This is an interactive process. Contact the author if you are not familiar with the bootstrap process). Copy license to /manifests/sls/slsbootstrap.yaml
 
 ---
 
