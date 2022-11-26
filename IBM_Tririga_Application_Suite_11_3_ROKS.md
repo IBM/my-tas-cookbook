@@ -91,9 +91,10 @@ flowchart LR
     L --> M[AWS Rosa]
     L --> N[Azure ARO]
     L --> O[n...]
-    style C fill:#121212,stroke:#333,stroke-width:2px
-    style D fill:#03dbfc,stroke:#333,stroke-width:4px
-    style F fill:#03dbfc,stroke:#333,stroke-width:4px
+    style E stroke:#333,stroke-width:5px
+    style C stroke:#333,stroke-width:5px
+    style D stroke:#333,stroke-width:5px
+    style F stroke:#333,stroke-width:5px
 ```
 
 <div style="page-break-after: always;"></div>
@@ -111,8 +112,8 @@ flowchart LR
     E --> G[DB2]
     E --> H[Oracle]
     E --> I[MS Sql]
-    style C fill:#03dbfc,stroke:#333,stroke-width:2px
-    style D fill:#03dbfc,stroke:#333,stroke-width:4px
+    style C stroke:#333,stroke-width:5px
+    style D stroke:#333,stroke-width:5px
 ```
 
 #### Estimated overall time ⏰: 3+ hours
