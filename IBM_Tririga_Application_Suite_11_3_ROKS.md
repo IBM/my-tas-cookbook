@@ -10,6 +10,10 @@ The deployment steps and automation scripts were created and adapted from the [o
 
 At the time of writing, the deployment script and steps for TAS [version 11.3](https://www.ibm.com/docs/en/tas/11.3?topic=installing-tririga-application-suite-components) had been validated for Red Hat OpenShift Container Platform [version 4.10](https://docs.openshift.com/container-platform/4.10/welcome/index.html) running on [IBM cloud](https://www.ibm.com/cloud/openshift) with IBM Cloud Pak for Data [version 4.5.3](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=overview-whats-new) including [Db2 Warehouse](https://www.ibm.com/products/db2/warehouse) and [Data Management Console](https://www.ibm.com/products/db2-data-management-console).
 
+
+
+![](https://raw.githubusercontent.com/IBM/my-tas-cookbook/main/tas-component-diag-1.png)
+
 ---
 
 <div style="page-break-after: always;"></div>
