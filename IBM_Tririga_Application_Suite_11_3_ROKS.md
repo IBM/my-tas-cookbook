@@ -158,23 +158,9 @@ source env.sh; cpd-cli manage add-icr-cred-to-global-pull-secret ${IBM_ENTITLEME
 ./cpd.sh
 ```
 
-**2.6. URL and credentials**
+**URL and credentials**
 
-2.6.1. Run the following command to update the certificate.
-
-```shell
-source env.sh ; oc project ${PROJECT_CPD_INSTANCE} ; oc delete route cpd
-```
-
-```shell
-oc extract secret/ibm-nginx-internal-tls-ca --keys=cert.crt --to=- > ./cert.crt
-```
-
-```shell
-oc create route reencrypt cpd --service=ibm-nginx-svc --port=ibm-nginx-https-port --dest-ca-cert=./cert.crt
-```
-
-2.6.2. Run the following command to retrieve URL and credentials (to validate CP4D deployment).
+When the above mentioned `cpd.sh` command completes, the URL, username (admin) and the password will be shown on the terminal. The next step is mentioned just in case this information is needed again.
 
 ```shell
 source env.sh; cpd-cli manage get-cpd-instance-details --cpd_instance_ns=${PROJECT_CPD_INSTANCE} --get_admin_initial_credentials=true
