@@ -129,24 +129,4 @@ flowchart TB
 
 ### Appendix B: OpenShift instance via IBM's Tech Zone
 
-<!-- #### Infrastructure decision
-
-```mermaid
-flowchart LR
-    id1[/OpenShift platform/version/] --> B{Decision}
-    B --> C[Tech Zone/IBM Cloud] --> D[ROKS Classic] --> E((Version)) --> F[4.10]
-    C --> G[ROKS VPC]
-    C --> H[VMware]
-    B --> I[Your Own IBM Cloud]
-    I --> J[ROKS]
-    I --> K[VPC]
-    B --> L[Other Cloud Vendors]
-    L --> M[AWS]
-    L --> N[Azure]
-    L --> O[n...]
-    style B stroke:#333,stroke-width:5px
-    style E stroke:#333,stroke-width:5px
-    style C stroke:#333,stroke-width:5px
-    style D stroke:#333,stroke-width:5px
-    style F stroke:#333,stroke-width:5px
-``` -->
+---
