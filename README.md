@@ -36,8 +36,11 @@ source env.sh; cpd-cli manage add-icr-cred-to-global-pull-secret ${IBM_ENTITLEME
 1. Using credentials retrieved from above mentioned step, log in to Cloud Pak for Data Web Console.
 
 <details>
+<summary> 
 
-<summary> Expand to read more ... </summary>
+## Expand to read more ... 
+
+</summary>
 
 2. From the hamburger menu, drop-down *Services*. Click on *Services catalog*. Search `db2w` and click the tile for DB2 Warehouse. Click *Provision instance* button.
 
