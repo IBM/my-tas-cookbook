@@ -1,16 +1,14 @@
 # IBM TRIRIGA Application Suite (TAS) - Automated Implementation
 
-[Deployment cookbook](https://github.com/IBM/my-tas-cookbook). Author: Arif Ali ([aali@us.ibm.com](mailto:aali@us.ibm.com))
+[Deployment cookbook](https://github.com/IBM/my-tas-cookbook). Author: Arif Ali
 
-The deployment steps and automation scripts were created and adapted from the [official documentation](https://www.ibm.com/docs/en/tas/11.3). 
+The deployment steps and automation scripts were created and adapted from the [official documentation](https://www.ibm.com/docs/en/tas/11.5). 
 
 ---
 
-## IBM TRIRIGA Application Suite with Cloud Pak for Data (DB2 Warehouse) on Red Hat's OpenShift managed by IBM Cloud
+## IBM TRIRIGA Application Suite (TAS) with Cloud Pak for Data with DB2 Warehouse (CPD/DB2W) on Red Hat's OpenShift Container Platform (RHOCP)
 
-At the time of writing, the deployment script and steps for TAS [version 11.3](https://www.ibm.com/docs/en/tas/11.3?topic=installing-tririga-application-suite-components) had been validated for Red Hat OpenShift Container Platform [version 4.10](https://docs.openshift.com/container-platform/4.10/welcome/index.html) running on [IBM cloud](https://www.ibm.com/cloud/openshift) with IBM Cloud Pak for Data [version 4.5.3](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.5.x?topic=overview-whats-new) including [Db2 Warehouse](https://www.ibm.com/products/db2/warehouse) and [Data Management Console](https://www.ibm.com/products/db2-data-management-console).
-
-
+At the time of writing, the deployment script and steps for TAS [version 11.5](https://www.ibm.com/docs/en/tas/11.5?topic=installing-tririga-application-suite-components) had been validated for Red Hat OpenShift Container Platform [version 4.12](https://docs.openshift.com/container-platform/4.12/welcome/index.html) with IBM Cloud Pak for Data [version 4.6.6](https://www.ibm.com/docs/en/cloud-paks/cp-data/4.6.6?topic=overview-whats-new) including [Db2 Warehouse](https://www.ibm.com/products/db2/warehouse).
 
 ![](https://raw.githubusercontent.com/IBM/my-tas-cookbook/main/tas-component-diag-1.png)
 
@@ -108,18 +106,8 @@ flowchart LR
 
 **DB2 Warehouse Database instance**
 
-```mermaid
-flowchart TD
-    A[Do I need sales demo data?]
-    A --> B[No!]
-    B --> D[Go to 2.11]
-    A --> C[Yes!]
-    C --> E[Go to 2.12]
-```
+**Prepare Database**
 
-**Prepare Database (no demo data)**
-
-**Prepare Database (with demo data)**
 
 ---
 
