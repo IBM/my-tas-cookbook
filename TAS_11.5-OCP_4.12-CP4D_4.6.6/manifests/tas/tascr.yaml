@@ -1,0 +1,52 @@
+
+apiVersion: tririga.ibm.com/v1
+kind: Tririga
+metadata:
+  name: my-tririga
+  namespace: ibm-tas
+spec:
+  integration:
+    server_xml_ext: ''
+    sso:
+      cfg_secret: ''
+      method: na
+    truststore: ''
+  env:
+    size: ${TAS_SIZE}
+    use: production
+  license:
+    accept: true
+  db:
+    db_secret: 'tas-db-secret'
+    dbtype: db2
+    dbdnsname: c-db2wh-${DB2W_INSTANCE_ID}-db2u.ibm-cpd.svc.cluster.local
+    dbport: 50001
+    dbname: TASDB
+    sid: default
+  jvm:
+    javamin: 4096
+    javamax: 8192
+  rt:
+    contextpath: tririga
+    domain: default
+    routes_crt: ''
+  sls:
+    sls_host: sls.ibm-sls.svc.cluster.local
+    sls_secret: 'tas-sls-secret'
+  uds:
+    uds_host: event-api-service.ibm-common-services.svc:8443
+    uds_secret: 'tas-bas-secret'
+  storage:
+    log:
+      class: ${BLOCK_STORAGE}
+      size: 30
+      mode: 'ReadWriteOnce'
+    config: 
+      class: ${FILE_STORAGE}
+      size: 1
+      mode: 'ReadWriteMany'
+    userfiles: 
+      class: ${FILE_STORAGE}
+      size: 50
+      mode: 'ReadWriteMany'
+  version: 1.0.0

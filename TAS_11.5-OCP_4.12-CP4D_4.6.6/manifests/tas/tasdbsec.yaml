@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tas-db-secret
+  namespace: ibm-tas
+stringData:
+  DBA_USERNAME: tridata
+  DBA_PASSWORD: tridata
+  DB_USERNAME: tridata
+  DB_PASSWORD: tridata
+  ca.crt: |

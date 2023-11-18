@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tas-bas-secret
+  namespace: ibm-tas
+stringData:
+  api_url: https://event-api-service.ibm-common-services.svc:8443
+  api_key: ${UDSAPIKEY}
+  ca-bundle.pem: |

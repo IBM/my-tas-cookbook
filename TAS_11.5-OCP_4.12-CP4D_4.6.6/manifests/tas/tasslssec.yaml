@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: tas-sls-secret
+  namespace: ibm-tas
+stringData:
+  url: https://sls.ibm-sls.svc.cluster.local

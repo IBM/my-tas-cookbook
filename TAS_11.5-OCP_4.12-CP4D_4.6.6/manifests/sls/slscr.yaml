@@ -1,0 +1,40 @@
+---
+apiVersion: sls.ibm.com/v1
+kind: LicenseService
+metadata:
+  name: sls
+  labels:
+    app.kubernetes.io/instance: ibm-sls
+    app.kubernetes.io/managed-by: olm
+    app.kubernetes.io/name: ibm-sls
+  namespace: ibm-sls
+spec:
+  settings:
+    auth:
+      enforce: true
+    compliance:
+      enforce: true
+    registration:
+      open: true
+    reporting:
+      maxDailyReports: 90
+      maxHourlyReports: 24
+      maxMonthlyReports: 12
+      reportGenerationPeriod: 3600
+      samplingPeriod: 900
+  license:
+    accept: true
+  mongo:
+    configDb: admin
+    nodes:
+      - host: my-mongodb-0.my-mongodb-svc.mongodb.svc.cluster.local
+        port: 27017
+      - host: my-mongodb-1.my-mongodb-svc.mongodb.svc.cluster.local
+        port: 27017
+      - host: my-mongodb-2.my-mongodb-svc.mongodb.svc.cluster.local
+        port: 27017
+    retryWrites: true
+    secretName: sls-mongo-credentials
+    certificates:
+      - alias: ca.crt
+        crt: |

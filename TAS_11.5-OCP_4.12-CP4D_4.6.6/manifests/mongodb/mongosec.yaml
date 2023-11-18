@@ -1,0 +1,41 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: local-ca-issuer
+  namespace: mongodb
+spec:
+  ca:
+    secretName: ca-key-pair
+
+---
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: my-mongodb-cert
+  namespace: mongodb
+spec:
+  secretName: my-mongodb-cert
+  duration: 87600h
+  issuerRef:
+    name: local-ca-issuer
+    kind: Issuer
+  organization:
+  - AIAPPS
+  dnsNames:
+  - my-mongodb-0.my-mongodb-svc.mongodb.svc.cluster.local
+  - my-mongodb-1.my-mongodb-svc.mongodb.svc.cluster.local
+  - my-mongodb-2.my-mongodb-svc.mongodb.svc.cluster.local
+  privateKey:
+    rotationPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: my-user-password
+  namespace: mongodb
+type: Opaque
+stringData:
+  password: ${MONGO_PASSWORD}

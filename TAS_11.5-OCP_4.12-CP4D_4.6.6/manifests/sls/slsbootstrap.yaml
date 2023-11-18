@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+type: Opaque
+metadata:
+  name: sls-bootstrap
+  namespace: ibm-sls
+stringData:
+  licensingId: "${HOSTID}"
+  licensingKey: |

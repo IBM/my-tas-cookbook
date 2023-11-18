@@ -1,0 +1,33 @@
+apiVersion: uds.ibm.com/v1
+kind: AnalyticsProxy
+metadata:
+  name: analyticsproxy
+  namespace: ibm-common-services
+spec:
+  allowed_domains: '*'
+  db_archive:
+    persistent_storage:
+      storage_size: 10G
+  storage_class: "${UDS_STORAGE_CLASS}"
+  license:
+    accept: true
+  airgappeddeployment:
+    enabled: false
+  event_scheduler_frequency: '*/10 * * * *'
+  ibmproxyurl: 'https://iaps.ibm.com'
+  postgres:
+    storage_size: 10G
+    backup_frequency: "@daily"
+    backup_type: "incremental"
+  kafka:
+    storage_size: 5G
+    zookeeper_storage_size: 5G
+  env_type: lite
+  tls: 
+    uds_host: ''
+    airgap_host: ''
+  proxy_settings: 
+    http_proxy: ''
+    https_proxy: ''
+    no_proxy: ''
+  image_pull_secret: ibm-entitlement
