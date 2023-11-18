@@ -38,7 +38,7 @@ source env.sh; cpd-cli manage add-icr-cred-to-global-pull-secret ${IBM_ENTITLEME
 <details>
 <summary> 
 
-## Expand to read more ... 
+### Expand to read more ... 
 
 </summary>
 
