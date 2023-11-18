@@ -2,16 +2,15 @@
 
 Implementation/deployment steps for Tririga Application Suite. Latest 11.5 based on [official documentation](https://www.ibm.com/docs/en/tas/11.5) using Bash automation created by Arif Ali (acknowledgement/credit: Sumit Puri).
 
-## Cloud Pak for Data 4.6.6
+## Git clone
 
 ```shell
-git clone -b TAS_11.5-OCP_4.12-CP4D_4.6.6 --single-branch https://github.com/IBM/my-tas-cookbook.git
-```
-```shell
-cd TAS_11.5-OCP_4.12-CP4D_4.6.6/
+git clone -b TAS_11.5-OCP_4.12-CP4D_4.6.6 --single-branch https://github.com/IBM/my-tas-cookbook.git ; cd my-tas-cookbook/TAS_11.5-OCP_4.12-CP4D_4.6.6/
 ```
 
 📌 Place your AppPoint license file (license.dat) at the root of the folder.
+
+## Cloud Pak for Data 4.6.6
 
 📌 Open `env.sh` file and carefully update all values based on the provided instructions. This includes inserting your container software's entitlement key, your AppPoint license file's Host ID number, and storage selection based on the type of OpenShift cluster you have provisioned.
 
