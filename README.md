@@ -35,6 +35,10 @@ source env.sh; cpd-cli manage add-icr-cred-to-global-pull-secret ${IBM_ENTITLEME
 
 1. Using credentials retrieved from above mentioned step, log in to Cloud Pak for Data Web Console.
 
+<details>
+
+<summary> Expand to read more ... </summary>
+
 2. From the hamburger menu, drop-down *Services*. Click on *Services catalog*. Search `db2w` and click the tile for DB2 Warehouse. Click *Provision instance* button.
 
 3. Using the following matrix, create your database instance:
@@ -65,6 +69,10 @@ source env.sh; cpd-cli manage add-icr-cred-to-global-pull-secret ${IBM_ENTITLEME
 6. From the hamburger menu, select *Services - Instances*. Click on the *DB2 Warehouse-1* instance. Copy the randomly generated numbered ID from the *Deployment id* field (do not copy the word `db2wh`. Only copy the randomly generated numbers).
 
 7. Update `env.sh` with DB2W unique ID (line number 61). Save the env.sh file.
+
+
+</details>
+
 
 8. Run `./db2wh.sh` ⏰: 45 minutes
 
