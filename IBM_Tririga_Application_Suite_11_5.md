@@ -125,11 +125,11 @@ flowchart TB
 
 ---
 
-### Appendix A: Linux host via IBM's Tech Zone
+### Appendix A: Bring Your Own Linux or use IBM's Tech Zone
 
 ### Appendix B: OpenShift instance via IBM's Tech Zone
 
-#### Infrastructure decision
+<!-- #### Infrastructure decision
 
 ```mermaid
 flowchart LR
@@ -149,4 +149,4 @@ flowchart LR
     style C stroke:#333,stroke-width:5px
     style D stroke:#333,stroke-width:5px
     style F stroke:#333,stroke-width:5px
-```
+``` -->
