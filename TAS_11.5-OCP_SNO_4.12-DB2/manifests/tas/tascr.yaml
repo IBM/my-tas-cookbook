@@ -19,7 +19,7 @@ spec:
   db:
     db_secret: 'tas-db-secret'
     dbtype: db2
-    dbdnsname: c-db2wh-${DB2W_INSTANCE_ID}-db2u.ibm-cpd.svc.cluster.local
+    dbdnsname: c-db2ucluster-db2u.db2u.svc.cluster.local
     dbport: 50001
     dbname: TASDB
     sid: default

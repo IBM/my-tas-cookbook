@@ -10,7 +10,22 @@ fi
 set -e
 ## Ensure env is initialized
 source $(dirname $(realpath ${0}))/env.sh
-### MongoDB
+## IBM Common Services
+### IBM CatalogSource
+oc apply -f ${PROJECT_DIR}/manifests/cs/catalogsource.yaml >> /dev/null 2>&1
+CATALOGSOURCE=$(oc -n openshift-marketplace get catalogsource ibm-operator-catalog -o jsonpath='{.status.connectionState.lastObservedState}{"\n"}')
+while [ "$CATALOGSOURCE" != "READY" ]; do CATALOGSOURCE=$(oc -n openshift-marketplace get catalogsource ibm-operator-catalog -o jsonpath='{.status.connectionState.lastObservedState}{"\n"}'); echo "Installing IBM CatalogSource..." $CATALOGSOURCE; sleep 20; done
+### IBM Common Services CSVs
+oc apply -f ${PROJECT_DIR}/manifests/cs/commonservices.yaml >> /dev/null 2>&1
+while [ "$(oc get csv -n ibm-common-services ibm-common-service-operator.v3.23.9 -o jsonpath='{ .status.phase }')" != "Succeeded" ]; do sleep 5; echo "Waiting for IBM Common Services to be ready."; done
+### IBM Common Services Operators (Cert Manager and Licensing)
+oc apply -f ${PROJECT_DIR}/manifests/cs/opreq.yaml >> /dev/null 2>&1
+CERTMANAGER=$(oc get certmanager default -o jsonpath='{.status.certManagerStatus}{"\n"}')
+while [ "$CERTMANAGER" != "Successfully deployed cert-manager" ]; do CERTMANAGER=$(oc get certmanager default -o jsonpath='{.status.certManagerStatus}{"\n"}'); echo "Installing IBM Cert Manager..." $CERTMANAGER; sleep 20; done
+LICENSESERVICE=$(oc get IBMLicensing instance -n ibm-common-services -o jsonpath='{.status.state}{"\n"}')
+while [ "$LICENSESERVICE" != "ACTIVE" ]; do LICENSESERVICE=$(oc get IBMLicensing instance -n ibm-common-services -o jsonpath='{.status.state}{"\n"}'); echo "Installing IBM License Service..." $LICENSESERVICE; sleep 20; done
+sleep 1m
+## MongoDB
 echo "Installing MongoDB. Please wait!"
 oc new-project mongodb >> /dev/null 2>&1
 git clone https://github.com/mongodb/mongodb-kubernetes-operator.git >> /dev/null 2>&1
@@ -27,12 +42,7 @@ envsubst < ${PROJECT_DIR}/manifests/mongodb/mongosec.yaml | oc create -f - >> /d
 envsubst < ${PROJECT_DIR}/manifests/mongodb/mongocr.yaml | oc create -f - >> /dev/null 2>&1
 MONGOSVC=$(oc get MongoDBCommunity my-mongodb -o jsonpath='{.status.phase}{"\n"}')
 while [ "$MONGOSVC" != "Running" ]; do MONGOSVC=$(oc get MongoDBCommunity my-mongodb -o jsonpath='{.status.phase}{"\n"}'); echo "Installing MongoDB..." $MONGOSVC; sleep 20; done
-### SLS
-#### IBM Operator Catalog Source
-echo "Installing IBM Suite License Service. Please wait! Ignore temporary NotFound errors."
-oc create -f ${PROJECT_DIR}/manifests/catalogsource/icatsrc.yaml >> /dev/null 2>&1
-echo "Waiting a few minutes ... IBM's Operator Catalog"
-sleep 3m
+## SLS
 oc new-project ibm-sls >> /dev/null 2>&1
 export MONGODB_NAMESPACE=mongodb
 export MONGODB_USERNAME=$(oc get secret -n $MONGODB_NAMESPACE my-mongodb-admin-admin -o jsonpath="{.data.username}" | base64 -d)
@@ -55,7 +65,7 @@ oc apply -f ${PROJECT_DIR}/manifests/sls/slscr.yaml >> /dev/null 2>&1
 while \
 [ "$(oc get licenseservice sls -n ibm-sls -o jsonpath='{.status.conditions[1].message}')" != "Suite License Service API is ready. GET https://sls.ibm-sls.svc/api/entitlement/config rc=200" ]; \
 do sleep 45; echo "Waiting for License Service to be ready."; done
-### UDS
+## UDS
 echo "Installing IBM User Data Service."
 oc project ibm-common-services >> /dev/null 2>&1
 oc create secret docker-registry ibm-entitlement --docker-server=cp.icr.io --docker-username=cp --docker-password="$IBM_ENTITLEMENT_KEY" -n ibm-common-services >> /dev/null 2>&1

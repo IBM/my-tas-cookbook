@@ -5,5 +5,6 @@ source $(dirname $(realpath ${0}))/env.sh
 git clone https://github.com/IBM/tas-db-prep.git
 cd tas-db-prep/cp4d-db2wh
 chmod +x *.sh
-oc project ibm-cpd
-sh prepareDB.sh c-db2wh-${DB2W_INSTANCE_ID}-db2u-0 TASDB tridata SMALL
+oc project db2u
+DB2WHPOD=c-db2ucluster-db2u-0
+sh prepareDB.sh ${DB2WHPOD} TASDB tridata SMALL

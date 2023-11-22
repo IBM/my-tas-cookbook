@@ -7,7 +7,7 @@ Implementation/deployment steps for Tririga Application Suite using DB2 Warehous
 ```shell
 git clone -b TAS_11.5-OCP_4.12-CP4D_4.6.6 --single-branch https://github.com/IBM/my-tas-cookbook.git ; cd my-tas-cookbook/TAS_11.5-OCP_4.12-CP4D_4.6.6/
 ```
-
+sed -i -e 's/\r$//' db2createdb.sh
 📌 Place your AppPoint license file (license.dat) at the root of the folder.
 
 ## Cloud Pak for Data 4.6.6
@@ -15,7 +15,7 @@ git clone -b TAS_11.5-OCP_4.12-CP4D_4.6.6 --single-branch https://github.com/IBM
 📌 Open `env.sh` file and carefully update all values based on the provided instructions. This includes inserting your container software's entitlement key, your AppPoint license file's Host ID number, and storage selection based on the type of OpenShift cluster you have provisioned.
 
 ```shell
-export PATH=$HOME/my-tas-cookbook/TAS_11.5-OCP_4.12-CP4D_4.6.6/cpd-cli:$PATH ; wget https://github.com/IBM/cpd-cli/releases/download/v12.0.6/cpd-cli-linux-EE-12.0.6.tgz ; tar xvf cpd-cli-linux-EE-12.0.6.tgz ; mv cpd-cli-linux-EE-12.0.6-63/ cpd-cli
+export PATH=$HOME/my-tas-cookbook/TAS_11.5-OCP_SNO_4.12-DB2/cpd-cli:$PATH ; wget https://github.com/IBM/cpd-cli/releases/download/v12.0.6/cpd-cli-linux-EE-12.0.6.tgz ; tar xvf cpd-cli-linux-EE-12.0.6.tgz ; mv cpd-cli-linux-EE-12.0.6-63/ cpd-cli
 ```
 ```
 oc login ... 
@@ -31,9 +31,33 @@ source env.sh; cpd-cli manage add-icr-cred-to-global-pull-secret ${IBM_ENTITLEME
 ```
 ⏰ 1.5 hours.
 
-## DB2 Warehouse 
+## DB2 External
 
-1. Using credentials retrieved from above mentioned step, log in to Cloud Pak for Data Web Console.
+1. TBA
+
+db2ldap=$(oc get po | grep c-db2ucluster-ldap- | awk {'print $1'}) ; echo $db2ldap
+oc rsh ${db2ldap} /opt/ibm/ldap_scripts/addLdapUser.py -u tridata -p tridata -r admin
+sed -i 's/\r$//' db2createdb.sh
+oc cp db2configinst.sh c-db2ucluster-db2u-0:/tmp
+oc cp db2createdb.sh c-db2ucluster-db2u-0:/tmp
+oc cp create-ts.sql c-db2ucluster-db2u-0:/tmp
+oc cp ssl-setup.sh c-db2ucluster-db2u-0:/tmp
+oc exec -ti c-db2ucluster-db2u-0 -- chmod 666 /tmp/db2configinst.sh
+oc exec -ti c-db2ucluster-db2u-0 -- chmod 666 /tmp/db2createdb.sh
+oc exec -ti c-db2ucluster-db2u-0 -- su - db2inst1 -c "sh /tmp/db2configinst.sh db2inst1 50000 /mnt/blumeta0/home/db2inst1/sqllib"
+#./db2configinst.sh db2inst1 50001 /mnt/blumeta0/home/db2inst1/sqllib
+oc exec -ti c-db2ucluster-db2u-0 -- su - db2inst1 -c "sh /tmp/db2createdb.sh tasdb db2inst1 US /mnt/blumeta0/home/db2inst1/sqllib tridata"
+oc exec -ti c-db2ucluster-db2u-0 -- su - db2inst1
+    export DB_SCHEMA=db2inst1
+    export DB_USERNAME=tridata
+    db2 connect to TASDB
+    cp /tmp/create-ts.sql .
+    db2 -tvf create-ts.sql
+db2 connect to tasdb user tridata using tridata
+oc exec -ti c-db2ucluster-db2u-0 -- su - db2inst1 -c "sh /tmp/ssl-setup.sh db2inst1"
+db2 connect to tasdb user tridata using tridata
+
+
 
 <details>
 <summary> 
@@ -42,37 +66,7 @@ source env.sh; cpd-cli manage add-icr-cred-to-global-pull-secret ${IBM_ENTITLEME
 
 </summary>
 
-2. From the hamburger menu, drop-down *Services*. Click on *Services catalog*. Search `db2w` and click the tile for DB2 Warehouse. Click *Provision instance* button.
-
-3. Using the following matrix, create your database instance:
-
-| Value                        | Key                                |
-| ---------------------------- | ---------------------------------- |
-| TASDB                        | Database Name                      |
-| 6.1 (default)                | CPU per node for Db2 Warehouse     |
-| 18 (default)                 | Memory per node for Db2 Warehouse  |
-| Un checked (default)         | Deploy database on dedicated nodes |
-| Single location for all data | Storage Structure                  |
-| Check                        | 4K Sector Size                     |
-| Check                        | Oracle compatibility               |
-| Operational Analytics        | Workload                           |
-| Credentials                  | Generate a Kubernetes secret       |
-| ibmc-file-gold-gid  (OR)     | Storage class                      |
-| ocs-storagecluster-cephfs    | Storage class                      |
-| 500 GiB                      | Size                               |
-
-**Create database user (tridata/tridata).**
-
-4. From the hamburger menu, select *Administration - Access control*. Click *Add user* button. Create username: `tridata` with the password: `tridata`. Click Next. Select *Assign roles directly*. Click Next. Select *User* checkbox as a *Roles*. Click Next. Click *Add*.
-
-5. From the hamburger menu, select *Services - Instances*. Click on the three-dot menu of the Db2 Warehouse-1 instance and select *Manage access*. Click the *Add users* button. Select *tridata* and choose *Admin* Role. Click *Add* button.
-
-**Locate DB2's Instance ID number.**
-
-6. From the hamburger menu, select *Services - Instances*. Click on the *DB2 Warehouse-1* instance. Copy the randomly generated numbered ID from the *Deployment id* field (do not copy the word `db2wh`. Only copy the randomly generated numbers).
-
-7. Update `env.sh` with DB2W unique ID (line number 61). Save the env.sh file.
-
+2. TBA
 
 </details>
 
