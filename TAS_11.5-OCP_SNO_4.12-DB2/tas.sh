@@ -22,7 +22,10 @@ echo "Creating secret object with entitlement software key."
 oc create secret docker-registry ibm-entitlement --docker-server=cp.icr.io --docker-username=cp --docker-password=${IBM_ENTITLEMENT_KEY} -n ibm-tas >> /dev/null 2>&1
 ## DB2
 echo "Downloading DB2 SSL CA certificate."
-oc cp -n db2u c-db2ucluster-db2u-0:/mnt/blumeta0/db2/ssl_keystore/rootCA.pem ${PROJECT_DIR}/rootCA.pem >> /dev/null 2>&1
+## Default SSL
+# oc cp -n db2u c-db2ucluster-db2u-0:/mnt/blumeta0/db2/ssl_keystore/rootCA.pem ${PROJECT_DIR}/rootCA.pem >> /dev/null 2>&1
+## Custom SSL
+oc cp -n db2u c-db2ucluster-db2u-0:/mnt/blumeta0/home/db2inst1/dbcerts/rootCA.pem ${PROJECT_DIR}/rootCA.pem >> /dev/null 2>&1
 DB2_CERT=$(<${PROJECT_DIR}/rootCA.pem)
 echo "Populating DB2 SSL certificate as a YAML file."
 echo "$DB2_CERT" | sed 's/^/     /' >> ${PROJECT_DIR}/manifests/tas/tasdbsec.yaml
@@ -56,5 +59,6 @@ host=$(oc get route -n ibm-tas my-tririga | grep tririga | awk '{print $2}')
 context=$(oc get route -n ibm-tas my-tririga | grep tririga | awk '{print $3}')
 echo "TRIRIGA URL"
 echo https://$host$context/index.html
+export TASPSW=$(oc get secret my-tririga-tas-system-user -n ibm-tas --output="jsonpath={.data.psw}" | base64 -d); echo "Username: system, Password:" $TASPSW
 echo "TRIRIGA Admin Console URL"
 echo https://$host$context/html/en/default/admin
