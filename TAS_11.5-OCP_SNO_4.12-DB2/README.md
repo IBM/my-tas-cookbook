@@ -1,6 +1,6 @@
 # my-tas-cookbook
 
-Implementation/deployment steps for Tririga Application Suite using DB2 Warehouse on Cloud Pak for Data. TAS 11.5 based on [official documentation](https://www.ibm.com/docs/en/tas/11.5) using Bash automation created by [Arif Ali](https://www.linkedin.com/in/arifsali/) (acknowledgement: Sumit Puri).
+Implementation/deployment steps for Tririga Application Suite using DB2 OpenShift Operator (stand-alone DB2). TAS 11.5 based on [official documentation](https://www.ibm.com/docs/en/tas/11.5) using Bash automation created by [Arif Ali](https://www.linkedin.com/in/arifsali/) (acknowledgement: Sumit Puri).
 
 ## Git clone
 
