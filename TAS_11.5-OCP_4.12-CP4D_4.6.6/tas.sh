@@ -46,5 +46,6 @@ host=$(oc get route -n ibm-tas my-tririga | grep tririga | awk '{print $2}')
 context=$(oc get route -n ibm-tas my-tririga | grep tririga | awk '{print $3}')
 echo "TRIRIGA URL"
 echo https://$host$context/index.html
+export TASPSW=$(oc get secret my-tririga-tas-system-user -n ibm-tas --output="jsonpath={.data.psw}" | base64 -d); echo "Username: system, Password:" $TASPSW
 echo "TRIRIGA Admin Console URL"
 echo https://$host$context/html/en/default/admin
