@@ -23,14 +23,21 @@ git clone -b TAS_11.5-OCP_SNO_4.12-DB2 --single-branch https://github.com/IBM/my
 
 </summary>
 
-1. Create `tridata` user account
+1. Install DB2u Operator
 
 ```
+./db2ucluster.sh
+```
+
+2. Create `tridata` user account
+
+```
+oc project db2u
 db2ldap=$(oc get po | grep c-db2ucluster-ldap- | awk {'print $1'}) ; echo $db2ldap
 oc rsh ${db2ldap} /opt/ibm/ldap_scripts/addLdapUser.py -u tridata -p tridata -r admin
 ```
 
-2. Copy scripts files over to the db2 container.
+3. Copy scripts files over to the db2 container.
 
 ```
 cd tas-db-prep/external-db2
@@ -40,19 +47,19 @@ for n in create-ts.sql db2configinst.sh db2createdb.sh new_db2createts.sh ssl-se
 oc rsh c-db2ucluster-db2u-0 ls -l /tmp/scripts
 ```
 
-3. Configure DB2 instance.
+4. Configure DB2 instance.
 
 ```
 oc rsh c-db2ucluster-db2u-0 su - db2inst1 -c "sh /tmp/scripts/db2configinst.sh db2inst1 50000 /mnt/blumeta0/home/db2inst1/sqllib |tee /tmp/db2configinst.out"
 ```
 
-4. Create `TASDB` database.
+5. Create `TASDB` database.
 
 ```
 oc rsh c-db2ucluster-db2u-0 su - db2inst1 -c "sh /tmp/scripts/db2createdb.sh tasdb db2inst1 US /mnt/blumeta0/home/db2inst1/sqllib tridata |tee /tmp/db2createdb.out"
 ```
 
-5. Create database tablespace.
+6. Create database tablespace.
 
 TBA to check: oc rsh c-db2ucluster-db2u-0 su - db2inst1 -c "sh /tmp/scripts/db2createts.sh"
 ```
@@ -61,7 +68,7 @@ cp /tmp/scripts/db2createts.sh .
 ./db2createts.sh
 ```
 
-6. Create custom SSL
+7. Create custom SSL
 
 TBA to check: oc rsh c-db2ucluster-db2u-0 su - db2inst1 -c "sh /tmp/scripts/ssl-setup.sh db2inst1"
 
